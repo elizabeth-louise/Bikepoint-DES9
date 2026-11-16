@@ -9,7 +9,7 @@ import requests #not a native package so have to pip install it, add the require
 timestamp = datetime.now().strftime('%Y-%m-%d %H-%M-%S') #create datetime
 
 log_dir = 'logs'
-os.makedirs(log_dir, exist_ok=True) #os.makedirs makes the new directory
+os.makedirs(log_dir, exist_ok=True) #os.makedirs makes the new directory, exist_ok allows it to be okay for the directory to already exist
 log_filename = f'{log_dir}/{timestamp}.log' #logs have own file type
 
 logging.basicConfig( #below is just how we want our logs to be configured, need to configure for it to know what we want to see
@@ -18,7 +18,7 @@ logging.basicConfig( #below is just how we want our logs to be configured, need 
     level=logging.INFO #only thing below INFO is debug, debug gives lots of information
 )
 
-logger = logging.getLogger() #assining logger to variable 
+logger = logging.getLogger() #assigning logger to variable 
 logger.info('Logger was successfully initialised.') #now when run, the log file will show this text - logger.info says we want to have it at an info level. #whereever have a print statement add a logger so it can record what happens, if its info then .info, if an error then .error
 
 data_dir = 'data' #the name of the directory, made it a variable so easily editable
@@ -42,15 +42,15 @@ while attempt <= max_attempts: #run the following until the max attempts is reac
             print(f'File {filename} saved successfully 🎉')
             logger.info(f'File {filename} saved successfully 🎉')
         except Exception as e: #anything that goes wrong will store temporarily in e variable
-            print(f'An error occured when saving the JSON: {e}')
-            logger.error(f'An error occured when saving the JSON: {e}')
+            print(f'An error occurred when saving the JSON: {e}')
+            logger.error(f'An error occurred when saving the JSON: {e}')
             
         
         break
 
     elif 300<= status_code <500:
-        print(f'API call falied, status code {status_code} ☹️')
-        logger.error(f'API call falied, status code {status_code} ☹️')
+        print(f'API call failed, status code {status_code} ☹️')
+        logger.error(f'API call failed, status code {status_code} ☹️')
         break
 
     else:
