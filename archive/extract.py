@@ -29,6 +29,7 @@ url = 'https://api.tfl.gov.uk/BikePoint/' #API endpoint
 
 attempt = 1
 max_attempts = 3
+delay = 30
 
 while attempt <= max_attempts: #run the following until the max attempts is reached
     response = requests.get(url)
@@ -44,8 +45,7 @@ while attempt <= max_attempts: #run the following until the max attempts is reac
         except Exception as e: #anything that goes wrong will store temporarily in e variable
             print(f'An error occurred when saving the JSON: {e}')
             logger.error(f'An error occurred when saving the JSON: {e}')
-            
-        
+
         break
 
     elif 300<= status_code <500:
@@ -62,8 +62,4 @@ while attempt <= max_attempts: #run the following until the max attempts is reac
             logger.error(f'Attempt {attempt} failed, status code {status_code}. Trying again 😅')
 
         attempt+=1 #increase the attempt variable
-        time.sleep(30) #wait 30s before retrying
-
-
-
-        
+        time.sleep(delay) #wait 30s before retrying
