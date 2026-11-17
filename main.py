@@ -35,8 +35,6 @@ extract_result = extract_to_json(
     delay=30
 )
 
-print(extract_result)
-
 # ----- Retrieving keys 🔑 -----
 load_dotenv() #access to .env file
 
@@ -44,12 +42,14 @@ AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY') #directs to the env file and access
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
 
+if extract_result: #if the extract function returns true then do the following
 # ----- Using load function 🔃-----
-load_result = load_to_s3(
-    AWS_ACCESS_KEY,
-    AWS_SECRET_ACCESS_KEY,
-    AWS_BUCKET_NAME,
-    data_dir
-)
+    load_result = load_to_s3(
+        AWS_ACCESS_KEY,
+        AWS_SECRET_ACCESS_KEY,
+        AWS_BUCKET_NAME,
+        data_dir
+    )
 
-print(load_result)
+else:
+    logger.info('Extract saved no data, nothing to attempt to upload. Upload aborted.')
