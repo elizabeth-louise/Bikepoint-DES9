@@ -32,4 +32,3 @@ for file in file_location: #take each file in file_location (within the the data
         os.remove(to_upload) #once uploaded, delete the file from the local save
     except Exception as e: #if something goes wrong with the upload
         print(f'Something went wrong. Error: {e}')
-
