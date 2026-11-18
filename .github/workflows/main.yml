@@ -1,0 +1,29 @@
+name: Bikepoint Ingestion
+
+on:
+  schedule: #how often should it run
+    - cron: '*/5 * * * *'
+  workflow_dispatch: #allows for manual stop
+
+jobs:
+  build: #name of the job
+    runs-on: ubuntu-latest #what computer is being used, blank computer
+    environment: Bike Point DES9 #name of the environment
+    steps: #list of steps to conduct
+      - name: Checkout the repo
+        uses: actions/checkout@v7 #using a setup that already exists to extract code from repository#
+        
+      - name: steup python
+        uses: action/setup-python@v7 #using a setup that already exists to download python to the computer
+        with: #action takes certain parameters
+          python-version: 3.12 #setup with this version of python
+
+      - name: Install packages
+        run: pip install -r requirements.txt #install all the packages captured in the requirements folder
+
+      - name: Run script
+        env: #outline what should sit in the .env file - as in gitignore will store in vault area of github account
+          AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}} #syntax for pulling in secrets
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          AWS_BUCKET_NAME: ${{secrets.AWS_BUCKET_NAME}}
+        run: python main.py #what script to run
