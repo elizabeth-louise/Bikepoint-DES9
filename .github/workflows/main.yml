@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v7 #using a setup that already exists to extract code from repository#
         
       - name: steup python
-        uses: action/setup-python@v7 #using a setup that already exists to download python to the computer
+        uses: actions/setup-python@v7 #using a setup that already exists to download python to the computer
         with: #action takes certain parameters
           python-version: 3.12 #setup with this version of python
 
